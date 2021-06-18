@@ -397,10 +397,9 @@ Notification(문자알림) 서비스는 문자알림 이력이 많이 쌓일 수
 - 낙찰자정보등록 서비스를 호출하기 위하여 Stub과 (FeignClient) 를 이용하여 Service 대행 인터페이스 (Proxy) 를 구현 
 
 ```
-# (BiddingExamination) BiddingManagementService.java
 package bidding.external;
 
-@FeignClient(name="BiddingManagement", url="http://localhost:8081")
+@FeignClient(name="BiddingManagement", url="http://${api.url.bidding}:8080")
 public interface BiddingManagementService {
 
     @RequestMapping(method= RequestMethod.GET, path="/biddingManagements/registSucessBidder")
@@ -408,7 +407,6 @@ public interface BiddingManagementService {
     @RequestParam("succBidderNm") String succBidderNm, @RequestParam("phoneNumber") String phoneNumber);
 
 }
-
 ```
 
 - 심사결과가 등록된 직후(@PostUpdate) 낙찰자정보 등록을 요청하도록 처리 (낙찰자가 아닌 경우, 이후 로직 스킵)
